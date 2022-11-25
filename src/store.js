@@ -1,11 +1,27 @@
-import {createStore} from 'vuex'
+import {createStore} from 'vuex';
 
 export const store = createStore({
     state() {
         return {
-            todos: []
+            tempsMoy: 0,
+            nbTentatives: 0,
+            pourcentage: 0,
+            partiesJouees: []
+        };
+    },
+    getters: {
+        getTempsMoy(state){
+            return state.tempsMoy;
+        },
+        getNbTentatives(state){
+            return state.nbTentatives;
+        },
+        getPourcentage(state){
+            return state.pourcentage;
+        },
+        getPartiesJouees(state){
+            return state.partiesJouees;
         }
     },
-    getters: {},
     mutations: {}
-})
+});
