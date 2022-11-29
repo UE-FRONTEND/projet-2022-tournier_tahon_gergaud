@@ -5,7 +5,7 @@
 
 <script>
 export default{
-    name: 'Partie',
+    name: 'Game',
     data: function(){
         return{
         }

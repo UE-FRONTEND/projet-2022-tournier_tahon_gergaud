@@ -7,12 +7,12 @@
 </template>
 
 <script>
-import Partie from './Partie.vue'
+import Game from './Game.vue'
 
 export default{
-    name: 'PartiesJouees',
+    name: 'GamesPlayed',
     component: {
-        Partie
+        Game
     },
     data: function(){
         return{

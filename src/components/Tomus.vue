@@ -9,7 +9,7 @@
 
 <script>
 export default{
-    name: 'Game',
+    name: 'Tomus',
     data: function(){
         return{
             

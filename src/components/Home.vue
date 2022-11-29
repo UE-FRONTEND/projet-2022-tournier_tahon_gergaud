@@ -4,11 +4,11 @@
         {{ personne }}
         </p>
 
-        <router-link to="/game">
+        <router-link to="/tomus">
             <input type="button" value="Start">
         </router-link>
 
-        <router-link to="/statistiques">
+        <router-link to="/statistics">
             <input id="idButtonStart" type="button" value="Statistiques">
         </router-link>
     </div>

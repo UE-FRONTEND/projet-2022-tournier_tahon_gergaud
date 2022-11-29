@@ -3,24 +3,24 @@ import {createStore} from 'vuex';
 export const store = createStore({
     state() {
         return {
-            tempsMoy: 0,
-            nbTentatives: 0,
-            pourcentage: 0,
-            partiesJouees: []
+            averageTime: 0,
+            nbTry: 0,
+            percentage: 0,
+            gamesPlayed: []
         };
     },
     getters: {
-        getTempsMoy(state){
-            return state.tempsMoy;
+        getAverageTime(state){
+            return state.averageTime;
         },
-        getNbTentatives(state){
-            return state.nbTentatives;
+        getNbTry(state){
+            return state.nbTry;
         },
-        getPourcentage(state){
-            return state.pourcentage;
+        getPercentage(state){
+            return state.percentage;
         },
-        getPartiesJouees(state){
-            return state.partiesJouees;
+        getGamesPlayed(state){
+            return state.gamesPlayed;
         }
     },
     mutations: {}

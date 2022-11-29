@@ -1,15 +1,15 @@
 <template>
     <div>
         <p>
-            Temps moyen de jeu : {{ this.$store.getters.getTempsMoy }}
+            Temps moyen de jeu : {{ this.$store.getters.getAverageTime }}
             <br>
-            Nombre de tentatives : {{ this.$store.getters.getNbTentatives }}
+            Nombre de tentatives : {{ this.$store.getters.getNbTry }}
             <br>
-            <span v-if="this.$store.getters.getNbTentatives == 0">
+            <span v-if="this.$store.getters.getNbTry == 0">
                 Pourcentage de victoire : -- %
             </span>
             <span v-else>
-                Pourcentage de victoire : {{ this.$store.getters.getPourcentage }} %
+                Pourcentage de victoire : {{ this.$store.getters.getPercentage }} %
             </span>
             <br>
             <parties-jouees></parties-jouees>
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import PartiesJouees from './PartiesJouees.vue'
+import GamesPlayed from './GamesPlayed.vue'
 
 export default{
-    name: 'Statistiques',
+    name: 'Statistics',
     components: {
-        PartiesJouees
+        GamesPlayed
     },
     data: function(){
         return{
