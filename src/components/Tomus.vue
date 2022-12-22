@@ -10,6 +10,11 @@
         <input type="button" value="Valider" @click="addWord">
         <!-- TODO Verifier reponse -->
     </div>
+    <div>
+        <router-link to="/">
+            <input type="button" value="Abandonner" @click="giveUp">
+        </router-link>
+    </div>
 </template>
 
 <script>
@@ -48,6 +53,9 @@ export default{
             }
                 
             this.word = "";
+        },
+        giveUp: function(){
+            // TODO Stop timer
         }
     }
 }
