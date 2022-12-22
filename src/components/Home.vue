@@ -5,11 +5,11 @@
         </p>
 
         <router-link to="/tomus">
-            <input type="button" value="Start">
+            <input id="idButtonStart" type="button" value="Start">
         </router-link>
 
         <router-link to="/statistics">
-            <input id="idButtonStart" type="button" value="Statistiques">
+            <input type="button" value="Statistiques">
         </router-link>
     </div>
 </template>
