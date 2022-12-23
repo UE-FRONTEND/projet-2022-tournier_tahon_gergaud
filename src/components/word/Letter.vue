@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="this.color">
         {{ this.value }}
     </div>
 </template>
@@ -15,4 +15,16 @@ export default{
 </script>
 
 <style>
+.green{
+    background-color: green;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.red{
+    background-color: red;
+}
+
 </style>

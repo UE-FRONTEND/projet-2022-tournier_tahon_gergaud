@@ -1,10 +1,9 @@
 <template>
-    <div>
-
-        <p v-for="letter in this.listLetterColor">
-            <letter :value="letter.value" :color="letter.color"></letter>
-        </p>
+    <!-- All letters in the word -->
+    <div v-for="letter in this.letters">
+        <letter :value="letter.letter" :color="letter.color"></letter>
     </div>
+    <!---->
 </template>
 
 <script>
@@ -17,37 +16,59 @@ export default{
     },
     data: function(){
         return{
-            listLetterColor: []
+            letters: []
         }
     },
     props: {
         value: String,
         goal: String
     },
-    mounted() {
-        let goal_copy = this.goal.split('');
+    mounted(){
+        this.verifWord();
+    },
+    methods: {
+        verifWord: function(){
+            let occWord = this.countOcc(this.value);
+            let occGoal = this.countOcc(this.goal);
 
-        
-        for(let i=0; i<goal.length(); i++){
-            let color;
-            if(goal_copy[i] == this.value[i]){
-                color = "green"
-            }
-            else{
-                if(this.value[i] in goal_copy){
-                    color = "yellow"
+            for(let i = 0; i < this.goal.length; i++){ // for all letters in goal
+                let color;
+                if(this.value[i] == this.goal[i]){ // if the letter is in the same place than goal
+                    color = "green"; 
                 }
                 else{
-                    color = "red"
+                    if(!(this.value[i] in occGoal)){ // if the letter doesn't exist in goal
+                        color = "red";
+                    }
+                    else{
+                        if(occWord[this.value[i]] > occGoal[this.value[i]]){ // if the letter exist but not in a good place and more than in goal
+                            occWord[this.value[i]] -= 1;
+                            color = "red";
+                        }
+                        else{ // if the letter exist but not in a good place
+                            color = "yellow";
+                        }
+                    }
+                }
+                this.letters.push({letter: this.value[i], color: color}); // add the letter and his color
+            }
+        },
+        countOcc: function(word){
+            let occWord = {}
+            for(const element of word){
+                if(element in occWord){
+                    occWord[element] += 1;
+                }
+                else{
+                    occWord[element] = 1
                 }
             }
-            this.listLetterColor.push({letter: this.value[i], color: color})
-
-            goal_copy.splice(0);
+            return occWord;
         }
     }
 }
 </script>
 
 <style>
+
 </style>
