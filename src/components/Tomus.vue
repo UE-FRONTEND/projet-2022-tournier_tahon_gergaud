@@ -1,18 +1,27 @@
 <template>
-    <div>
+    <!-- All word try -->
+    <div id="idAllWords">
         <p v-for="word in this.listWords">
-            <word :value="word" :goal=this.goal></word>
+            <word :value="word" :goal="this.goal"></word>
         </p>
     </div>
+    <!---->
+    
     <div>
-        <!-- TODO Chronometre -->
-        <input type="text" v-model="this.word">
-        <input type="button" value="Valider" @click="addWord">
-        <!-- TODO Verifier reponse -->
+        {{ this.goal }} <!-- delete after -->
+        <br>
+        
+        <!-- Chrono -->
+        {{ this.displayChrono }}
+        <!---->
+        
+        <input id="idTextWord" type="text" v-on:keyup.enter="addWord" v-model="this.word">
+        <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
+
     </div>
     <div>
         <router-link to="/">
-            <input type="button" value="Abandonner" @click="giveUp">
+            <input type="button" value="Abandonner" @click="endGame">
         </router-link>
     </div>
 </template>
@@ -31,11 +40,19 @@ export default{
             word: "",
             listWords: [],
             goal: "",
+            chrono: 0.0,
+            intervalID: null,
             nbTryMax: 6
         }
     },
     mounted(){
-        axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word)
+        axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
+        this.intervalID = setInterval(this.updateChrono, 1000); // init chrono
+    },
+    computed: {
+        displayChrono: function(){
+            return this.chrono.toFixed(1); // display chrono with 1 number after comma
+        }
     },
     methods: {
         addWord: async function(){
@@ -43,23 +60,25 @@ export default{
                 {
                     word: this.word
                 }
-            )).data.isWord;
+            )).data.isWord; // check if the word exist
 
-            if (correct && this.word.length == 5){
+            if (correct && this.word.length == 5){ // if the word exist and his lenght == 5
                 this.listWords.push(this.word);
+                this.word = "";
+                // TODO if word is correct => win
+                // TODO if nbTryMax == 0 => lose
             }
             else{
                 // TODO message error
             }
                 
-            this.word = "";
         },
-        giveUp: function(){
-            // TODO Stop timer
-        }
+        updateChrono: function(){
+            this.chrono += 0.1; // add 1 second in chrono
+        },
+        endGame: function(){
+            clearInterval(this.intervalID); // stop chrono
+        },
     }
 }
 </script>
-
-<style>
-</style>
