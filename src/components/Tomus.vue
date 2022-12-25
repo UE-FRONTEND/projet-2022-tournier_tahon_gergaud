@@ -40,6 +40,7 @@ export default{
             word: "",
             listWords: [],
             goal: "",
+            win: false,
             chrono: 0.0,
             intervalID: null,
             nbTryMax: 6
@@ -62,11 +63,23 @@ export default{
                 }
             )).data.isWord; // check if the word exist
 
-            if (correct && this.word.length == 5){ // if the word exist and his lenght == 5
-                this.listWords.push(this.word);
-                this.word = "";
-                // TODO if word is correct => win
-                // TODO if nbTryMax == 0 => lose
+            if (correct && this.word.length === 5){ // if the word exist and his lenght == 5
+                if(this.listWords.indexOf(this.word) !== -1){
+                    // TODO word already type
+                }
+                else{
+                    this.listWords.push(this.word);
+                    this.word = "";
+                    this.nbTryMax--;
+
+                    if(this.listWords[this.listWords.length-1] === this.goal){
+                        this.win = true;
+                    }
+
+                    if(this.win || this.nbTryMax === 0){
+                        this.endGame();
+                    }
+                }
             }
             else{
                 // TODO message error
@@ -76,8 +89,16 @@ export default{
         updateChrono: function(){
             this.chrono += 0.1; // add 1 second in chrono
         },
+        stopChrono: function(){
+            clearInterval(this.intervalID);
+        },
         endGame: function(){
-            clearInterval(this.intervalID); // stop chrono
+            this.stopChrono();
+            // TODO display win page if (this.win)
+            // TODO display lose page else
+            this.$store.commit('addGame', {
+                "date": new Date(), "nbTry": this.listWords.length, "time": this.chrono, "win": this.win, "word": this.goal
+            });
         },
     }
 }

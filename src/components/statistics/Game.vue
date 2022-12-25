@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{ this.displayDate }}
     </div>
 </template>
 
@@ -13,12 +14,24 @@ export default{
     props: {
         date: Date,
         nbTry: Number,
-        timeInGame: Number,
+        time: Number,
         win: Boolean,
         word: String
+    },
+    computed: {
+        displayDate: function(){
+            return this.date.toLocaleString();
+        }
     }
 }
 </script>
 
 <style>
+.true{
+    background-color: green;
+}
+
+.false{
+    background-color: red;
+}
 </style>

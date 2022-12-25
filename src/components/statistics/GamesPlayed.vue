@@ -1,7 +1,7 @@
 <template>
     <div>
-        <ul v-for="partie in this.$store.getters.getPartiesJouees()">
-            <partie></partie>
+        <ul v-for="oneGame in this.$store.getters.getGamesPlayed">
+            <game :date="oneGame.date" :nbTry="oneGame.nbTry" :time="oneGame.time" :win="oneGame.win" :word="oneGame.word"></game>
         </ul>
     </div>
 </template>
@@ -11,14 +11,14 @@ import Game from './Game.vue'
 
 export default{
     name: 'GamesPlayed',
-    component: {
+    components: {
         Game
     },
     data: function(){
         return{
 
         }
-    }
+    },
 }
 </script>
 
