@@ -1,18 +1,18 @@
 <template>
     <div>
         <p>
-            Temps moyen de jeu : {{ this.$store.getters.getAverageTime }}
+            Temps moyen de jeu : {{ this.averageTime }}
             <br>
-            Nombre de tentatives : {{ this.$store.getters.getNbTry }}
+            Nombre de tentatives : {{ this.nbTry }}
             <br>
-            <span v-if="this.$store.getters.getNbTry == 0">
+            <span v-if="this.nbTry == 0">
                 Pourcentage de victoire : -- %
             </span>
             <span v-else>
-                Pourcentage de victoire : {{ this.$store.getters.getPercentage }} %
+                Pourcentage de victoire : {{ this.percentageWin }} %
             </span>
             <br>
-            <parties-jouees></parties-jouees>
+            <games-played></games-played>
         </p>
 
     </div>
@@ -28,7 +28,17 @@ export default{
     },
     data: function(){
         return{
-
+        }
+    },
+    computed: {
+        percentageWin: function(){
+            return this.$store.getters.getPercentage;
+        },
+        nbTry: function(){
+            return this.$store.getters.getNbTry;
+        },
+        averageTime: function(){
+            return this.$store.getters.getAverageTime;
         }
     }
 }
