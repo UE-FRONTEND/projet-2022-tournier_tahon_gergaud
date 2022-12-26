@@ -18,6 +18,9 @@
 
           <input id="idTextWord" type="text" v-on:keyup.enter="addWord" v-model="this.word">
           <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
+          <div class="incorrect-word">
+            <p v-if="incorrectWord">Ce mot n'existe pas !</p>
+          </div>
 
       </div>
     </div>
@@ -45,7 +48,8 @@ export default{
             win: false,
             chrono: 0.0,
             intervalID: null,
-            nbTryMax: 6
+            nbTryMax: 6,
+            incorrectWord: false
         }
     },
     mounted(){
@@ -84,7 +88,8 @@ export default{
                 }
             }
             else{
-                // TODO message error
+                this.incorrectWord = true
+                setTimeout(() => this.incorrectWord = false, 2000)
             }
                 
         },
@@ -107,6 +112,13 @@ export default{
 </script>
 
 <style scoped>
+  .incorrect-word {
+    color: red;
+    height: 30px;
+    padding-top: 5px;
+    font-weight: bold;
+  }
+
   .row {
     display: flex;
     flex-direction: row;
