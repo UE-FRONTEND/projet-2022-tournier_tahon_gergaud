@@ -60,7 +60,11 @@ export default{
             gameIsDone: false
         }
     },
-    mounted(){
+    unmounted() {
+      console.log("UNMOUNT")
+      this.stopChrono()
+    },
+  mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
         this.intervalID = setInterval(this.updateChrono, 100); // init chrono
     },
