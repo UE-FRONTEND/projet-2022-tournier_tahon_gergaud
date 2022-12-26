@@ -20,6 +20,7 @@
           <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
           <div class="incorrect-word">
             <p v-if="incorrectWord">Ce mot n'existe pas !</p>
+            <p v-else-if="alreadyTyped">Vous avez deja ecrit ce mot !</p>
           </div>
 
       </div>
@@ -49,7 +50,8 @@ export default{
             chrono: 0.0,
             intervalID: null,
             nbTryMax: 6,
-            incorrectWord: false
+            incorrectWord: false,
+            alreadyTyped: false
         }
     },
     mounted(){
@@ -71,7 +73,8 @@ export default{
 
             if (correct && this.word.length === 5){ // if the word exist and his lenght == 5
                 if(this.listWords.indexOf(this.word) !== -1){
-                    // TODO word already type
+                    this.alreadyTyped = true
+                    setTimeout(() => this.alreadyTyped = false, 2000)
                 }
                 else{
                     this.listWords.push(this.word);
