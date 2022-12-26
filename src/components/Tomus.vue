@@ -1,23 +1,25 @@
 <template>
-    <!-- All word try -->
-    <div id="idAllWords">
-        <p v-for="word in this.listWords">
-            <word :value="word" :goal="this.goal"></word>
-        </p>
-    </div>
-    <!---->
-    
-    <div>
-        {{ this.goal }} <!-- delete after -->
-        <br>
-        
-        <!-- Chrono -->
-        {{ this.displayChrono }}
-        <!---->
-        
-        <input id="idTextWord" type="text" v-on:keyup.enter="addWord" v-model="this.word">
-        <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
+    <div class="tomus-wrapper">
+      <!-- All word try -->
+      <div id="idAllWords" class="game">
+          <div v-for="word in this.listWords" class="row">
+              <word :value="word" :goal="this.goal"></word>
+          </div>
+      </div>
+      <!---->
 
+      <div>
+          {{ this.goal }} <!-- delete after -->
+          <br>
+
+          <!-- Chrono -->
+          {{ this.displayChrono }}
+          <!---->
+
+          <input id="idTextWord" type="text" v-on:keyup.enter="addWord" v-model="this.word">
+          <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
+
+      </div>
     </div>
     <div>
         <router-link to="/">
@@ -103,3 +105,20 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+  .row {
+    display: flex;
+    flex-direction: row;
+    height: 45px;
+    justify-content: center;
+  }
+
+  .game {
+    height: 350px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+  }
+</style>
