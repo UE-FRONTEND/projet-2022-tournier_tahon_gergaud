@@ -24,22 +24,27 @@
           </div>
 
       </div>
-    </div>
-    <div>
+
+      <div>
         <router-link to="/">
-            <input type="button" value="Abandonner" @click="endGame">
+          <input type="button" value="Abandonner" @click="endGame">
         </router-link>
+      </div>
     </div>
+
+    <EndGame :isWin="win" :isDone="gameIsDone"></EndGame>
 </template>
 
 <script>
 import axios from "axios";
 import Word from "./word/Word.vue"
+import EndGame from "./EndGame.vue"
 
 export default{
     name: 'Tomus',
     components: {
-        Word
+        Word,
+        EndGame
     },
     data: function(){
         return{
@@ -51,7 +56,8 @@ export default{
             intervalID: null,
             nbTryMax: 6,
             incorrectWord: false,
-            alreadyTyped: false
+            alreadyTyped: false,
+            gameIsDone: false
         }
     },
     mounted(){
@@ -65,13 +71,17 @@ export default{
     },
     methods: {
         addWord: async function(){
+            if(this.word.length !== 5) {
+              return
+            }
+
             let correct = (await axios.post("https://vue-project-backend-eta.vercel.app/api/check-word",
                 {
                     word: this.word
                 }
             )).data.isWord; // check if the word exist
 
-            if (correct && this.word.length === 5){ // if the word exist and his lenght == 5
+            if (correct) { // if the word exist and his length == 5
                 if(this.listWords.indexOf(this.word) !== -1){
                     this.alreadyTyped = true
                     setTimeout(() => this.alreadyTyped = false, 2000)
@@ -104,8 +114,8 @@ export default{
         },
         endGame: function(){
             this.stopChrono();
-            // TODO display win page if (this.win)
-            // TODO display lose page else
+            this.gameIsDone = true
+
             this.$store.commit('addGame', {
                 "date": new Date(), "nbTry": this.listWords.length, "time": this.chrono, "win": this.win, "word": this.goal
             });
@@ -127,6 +137,7 @@ export default{
     flex-direction: row;
     height: 45px;
     justify-content: center;
+    min-height: 0;
   }
 
   .game {
@@ -135,5 +146,6 @@ export default{
     display: flex;
     flex-direction: column;
     padding: .5rem;
+    min-height: 0;
   }
 </style>

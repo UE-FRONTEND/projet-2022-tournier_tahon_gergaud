@@ -37,5 +37,6 @@ export default{
   border-width: 1px;
   font-weight: bold;
   padding-top: 3px;
+  min-height: 0;
 }
 </style>
