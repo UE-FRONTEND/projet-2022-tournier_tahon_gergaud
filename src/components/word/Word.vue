@@ -1,6 +1,6 @@
 <template>
     <!-- All letters in the word -->
-    <div v-for="letter in this.letters">
+    <div v-for="letter in this.letters" class="letter">
         <letter :value="letter.letter" :color="letter.color"></letter>
     </div>
     <!---->

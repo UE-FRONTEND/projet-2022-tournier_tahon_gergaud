@@ -14,6 +14,7 @@ export default {
 
 <style scoped>
 .header-wrapper {
+  z-index: 3;
   height: 50px;
   display: flex;
   justify-content: space-between;

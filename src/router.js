@@ -1,5 +1,4 @@
 import { createWebHistory, createRouter } from "vue-router";
-import App from "@/App";
 import Home from "./components/Home.vue";
 import Tomus from "./components/Tomus.vue";
 import Statistics from "./components/statistics/Statistics.vue";
