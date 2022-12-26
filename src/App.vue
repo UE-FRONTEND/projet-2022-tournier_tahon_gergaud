@@ -1,23 +1,37 @@
 <template>
-  <div style="text-align: left; width: 400px">
+  <div id="app" class="mainPage">
+    <app-header/>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import AppHeader from "./AppHeader";
 
 export default {
   name: 'App',
+  components: {
+    AppHeader
+  }
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #ffffff;
+}
+
+.mainPage {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #461b4d;
 }
 </style>

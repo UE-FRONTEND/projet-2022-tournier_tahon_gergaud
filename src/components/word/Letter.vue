@@ -1,6 +1,6 @@
 <template>
-    <div :class="this.color">
-        {{ this.value }}
+    <div :class="this.color" class="letter">
+        {{ this.value.toUpperCase() }}
     </div>
 </template>
 
@@ -14,17 +14,28 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .green{
     background-color: green;
 }
 
 .yellow{
-    background-color: yellow;
+    background-color: #d2d201;
 }
 
 .red{
     background-color: red;
 }
 
+.letter {
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  font-size: 30px;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+  font-weight: bold;
+  padding-top: 3px;
+}
 </style>
