@@ -19,7 +19,7 @@ export default {
     name: "Home", 
     data: function(){
         return{
-            groupe: ['TOURNIR Constant', 'TAHON Valentin', 'GERGAUD Roxanne']
+            groupe: ['TOURNIER Constant', 'TAHON Valentin', 'GERGAUD Roxanne']
         }
     }
 }

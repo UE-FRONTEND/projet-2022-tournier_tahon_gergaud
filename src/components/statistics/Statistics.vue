@@ -15,6 +15,10 @@
             <games-played></games-played>
         </p>
 
+        <router-link to="/">
+          <input type="button" value="Home">
+        </router-link>
+
     </div>
 </template>
 
