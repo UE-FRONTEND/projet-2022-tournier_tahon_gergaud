@@ -56,7 +56,7 @@ export default{
     },
     mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
-        this.intervalID = setInterval(this.updateChrono, 1000); // init chrono
+        this.intervalID = setInterval(this.updateChrono, 100); // init chrono
     },
     computed: {
         displayChrono: function(){
