@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul v-for="oneGame in this.$store.getters.getGamesPlayed">
+        <ul class="gameList" v-for="oneGame in this.$store.getters.getGamesPlayed">
             <game :date="oneGame.date" :nbTry="oneGame.nbTry" :time="oneGame.time" :win="oneGame.win" :word="oneGame.word"></game>
         </ul>
     </div>
@@ -23,4 +23,7 @@ export default{
 </script>
 
 <style>
+.gameList{
+    padding: 0;
+}
 </style>

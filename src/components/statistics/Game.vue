@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="gameDetails">
         <p>___________</p>
         <p>Partie jouée le {{ this.displayDate }}</p>
         <div class="gameWin" v-if="win && nbTry === 1">
@@ -51,10 +51,26 @@ export default{
 .gameWin{
     padding: 10px;
     border-left: 2px solid green;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    justify-content: space-around;
+}
+
+.gameWin > p {
+    margin-bottom: 0;
 }
 
 .gameLose{
     padding: 10px;
     border-left: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    justify-content: space-around;
+}
+
+.gameLose > p {
+    margin-bottom: 0;
 }
 </style>
