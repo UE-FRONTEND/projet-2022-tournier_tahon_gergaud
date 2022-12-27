@@ -25,6 +25,8 @@
 
       </div>
 
+      <Keyboard @on-value="addInput" @on-delete="deleteInput"/>
+
       <div>
         <router-link to="/">
           <input type="button" value="Abandonner" @click="endGame">
@@ -39,12 +41,14 @@
 import axios from "axios";
 import Word from "./word/Word.vue"
 import EndGame from "./EndGame.vue"
+import Keyboard from "./keyboard/Keyboard";
 
 export default{
     name: 'Tomus',
     components: {
         Word,
-        EndGame
+        EndGame,
+        Keyboard
     },
     data: function(){
         return{
@@ -61,7 +65,6 @@ export default{
         }
     },
     unmounted() {
-      console.log("UNMOUNT")
       this.stopChrono()
     },
   mounted(){
@@ -74,6 +77,14 @@ export default{
         }
     },
     methods: {
+        addInput: function(v) {
+          if(this.word.length < 5) {
+            this.word += v
+          }
+        },
+        deleteInput: function() {
+          this.word = this.word.slice(0, this.word.length-1)
+        },
         addWord: async function(){
             if(this.word.length !== 5) {
               return
@@ -145,7 +156,7 @@ export default{
   }
 
   .game {
-    height: 350px;
+    height: 300px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
