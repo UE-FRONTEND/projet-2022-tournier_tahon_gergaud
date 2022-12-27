@@ -49,7 +49,7 @@ export default{
 
 <style>
 .game {
-padding: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     height: 80px;
