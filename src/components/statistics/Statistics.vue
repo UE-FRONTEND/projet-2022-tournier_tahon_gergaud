@@ -42,7 +42,7 @@ export default{
             return this.$store.getters.getNbTry;
         },
         averageTime: function(){
-            return this.$store.getters.getAverageTime;
+            return this.$store.getters.getAverageTime.toFixed(1);
         }
     }
 }
