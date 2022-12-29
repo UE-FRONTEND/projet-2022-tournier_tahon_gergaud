@@ -27,6 +27,10 @@ export default{
     background-color: red;
 }
 
+.gray {
+    background-color: gray;
+}
+
 .letter {
   width: 45px;
   height: 45px;

@@ -3,12 +3,13 @@ import {createStore} from 'vuex';
 export const store = createStore({
     state() {
         return {
+            goodLetters: [],
             averageTime: 0,
             allTime: 0,
             nbTry: 0,
             allWin: 0,
             percentage: 0,
-            gamesPlayed: []
+            gamesPlayed: [],
         };
     },
     getters: {
@@ -23,6 +24,9 @@ export const store = createStore({
         },
         getGamesPlayed(state){
             return state.gamesPlayed;
+        },
+        getGoodLetters(state){
+            return state.goodLetters;
         }
     },
     mutations: {
@@ -37,6 +41,21 @@ export const store = createStore({
                 state.percentage = state.allWin/state.nbTry*100;
             }
             state.averageTime = state.allTime/state.nbTry;
+        },
+
+        newGame(state) {
+            for (let i = 0; i < 5; i++) {
+                state.goodLetters[i] = ' ';
+            }
+        },
+
+        updateGoodLetter(state, word) {
+            for (let i = 0; i < 5; i++) {
+                if (word[i] !== ' ') {
+                    state.goodLetters[i] = word[i];
+                }
+            }
         }
     }
+
 });
