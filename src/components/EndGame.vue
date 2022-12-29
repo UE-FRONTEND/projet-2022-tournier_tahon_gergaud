@@ -1,7 +1,7 @@
 <template>
   <div class="leaving" :class="leaving ? 'back-home' : ''"></div>
 
-  <div class="end-game" :class="isDone ? isWin ? 'game-ended-win' : 'game-ended-lose' : ''">
+  <div class="end-game" :class="isDone ? isWin ? 'game-ended-win' : 'game-ended-lose' : 'hidden'">
     <div v-show="isDone">
       <div v-if="isWin" class="column">
         <Letter :color="'green'" :value="'g'"></Letter>
@@ -50,6 +50,11 @@ export default {
 </script>
 
 <style scoped>
+  .hidden {
+    height: 0!important;
+    width: 0!important;
+  }
+
   .leaving {
     width: 0;
     height: 0;
