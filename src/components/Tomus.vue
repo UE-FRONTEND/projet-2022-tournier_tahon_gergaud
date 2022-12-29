@@ -2,12 +2,14 @@
     <div class="tomus-wrapper">
       <!-- All word try -->
       <div id="idAllWords" class="game">
-          <div v-for="word in this.listWords" class="row">
-              <word :value="word" :goal="this.goal"></word>
-          </div>
-          <div v-for="letter in updateWord" style="display: inline">
+        <div v-for="word in this.listWords" class="row">
+            <word :value="word" :goal="this.goal"></word>
+        </div>
+        <div v-show="!gameIsDone" class="row m-top">
+          <div v-for="letter in updateWord" >
               <letter :value="letter[0]" :color="letter[1]"></letter>
           </div>
+        </div>
       </div>
       <!---->
 
@@ -72,6 +74,9 @@ export default{
     unmounted() {
       this.stopChrono()
     },
+  created() {
+    this.$store.commit('newGame', {});
+  },
   mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
         this.intervalID = setInterval(this.updateChrono, 1000); // init chrono
@@ -164,6 +169,10 @@ export default{
 </script>
 
 <style scoped>
+  .m-top {
+    margin-top: 45px;
+  }
+
   .incorrect-word {
     color: red;
     height: 30px;

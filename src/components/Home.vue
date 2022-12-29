@@ -5,7 +5,7 @@
         </p>
 
         <router-link to="/tomus">
-            <input id="idButtonStart" type="button" value="Start" v-on:click="startGame">
+            <input id="idButtonStart" type="button" value="Start">
         </router-link>
 
         <router-link to="/statistics">
@@ -20,11 +20,6 @@ export default {
     data: function(){
         return{
             groupe: ['TOURNIER Constant', 'TAHON Valentin', 'GERGAUD Roxanne']
-        }
-    },
-    methods: {
-        startGame: function () {
-          this.$store.commit('newGame', {});
         }
     }
 }
