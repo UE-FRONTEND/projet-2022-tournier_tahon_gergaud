@@ -7,6 +7,7 @@ export const store = createStore({
             averageTime: 0,
             allTime: 0,
             nbTry: 0,
+            allTry: 0,
             allWin: 0,
             percentage: 0,
             gamesPlayed: [],
@@ -32,7 +33,8 @@ export const store = createStore({
     mutations: {
         addGame(state, game){
             state.gamesPlayed.push(game);
-            state.nbTry++;
+            state.allTry += game.nbTry;
+            state.nbTry = state.allTry/state.gamesPlayed.length;
             state.allTime += game.time;
             if(game.win){
                 state.allWin++;

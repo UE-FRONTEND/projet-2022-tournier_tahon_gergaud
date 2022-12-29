@@ -3,7 +3,7 @@
         <p>
             Temps moyen de jeu : {{ this.averageTime }}
             <br>
-            Nombre de tentatives : {{ this.nbTry }}
+            Nombre de tentatives moyennes: {{ this.nbTry }}
             <br>
             <span v-if="this.nbTry == 0">
                 Pourcentage de victoire : -- %
@@ -11,6 +11,8 @@
             <span v-else>
                 Pourcentage de victoire : {{ this.percentageWin }} %
             </span>
+            <br>
+            Ensemble des parties jouées :
             <br>
             <games-played></games-played>
         </p>
@@ -39,7 +41,7 @@ export default{
             return this.$store.getters.getPercentage;
         },
         nbTry: function(){
-            return this.$store.getters.getNbTry;
+            return this.$store.getters.getNbTry.toFixed(2);
         },
         averageTime: function(){
             return this.$store.getters.getAverageTime.toFixed(1);
