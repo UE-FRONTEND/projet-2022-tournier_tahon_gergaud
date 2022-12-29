@@ -31,7 +31,7 @@
       <Keyboard @on-value="addInput" @on-delete="deleteInput" @on-enter="addWord"/>
 
       <div>
-          <input type="button" value="Abandonner" @click="endGame">
+          <input type="button" value="Abandonner" @click="endGame" :disabled="gameIsStopping">
       </div>
     </div>
 
@@ -71,12 +71,22 @@ export default{
             nbTryLeft: 6,
             incorrectWord: false,
             alreadyTyped: false,
-            gameIsDone: false
+            gameIsDone: false,
+            gameIsStopping: false
+        }
+    },
+    watch: {
+        stopGame() {
+          this.endGame()
         }
     },
     unmounted() {
       this.stopChrono()
     },
+  beforeCreate() {
+    this.$store.commit('setGameState')
+  },
+
   created() {
     this.$store.commit('newGame', {});
 
@@ -95,6 +105,10 @@ export default{
         this.intervalID = setInterval(this.updateChrono, 1000); // init chrono
     },
     computed: {
+        stopGame() {
+          return this.$store.getters.getStopGame
+        },
+
         displayChrono: function(){
             let txt = ''
             txt += Math.floor(this.chrono/60) + 'm '
@@ -170,6 +184,7 @@ export default{
             clearInterval(this.intervalID);
         },
         endGame: function(){
+            this.gameIsStopping = true
             this.stopChrono();
             this.gameIsDone = true
 

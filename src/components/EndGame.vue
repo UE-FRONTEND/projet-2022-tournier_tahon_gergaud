@@ -69,7 +69,7 @@ export default {
     opacity: 100%;
     height: 250vw;
     width: 250vw;
-    background-color: #461b4d;
+    background-color: #5377b5;
   }
 
   .back-btn {
@@ -81,7 +81,7 @@ export default {
     z-index: 1;
     width: 100px;
     height: 100px;
-    background-color: #461b4d;
+    background-color: #5377b5;
     display: flex;
     flex-direction: column;
     align-items: center;
