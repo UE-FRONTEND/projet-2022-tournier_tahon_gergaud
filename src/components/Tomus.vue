@@ -9,14 +9,14 @@
       <!---->
 
       <div>
-          {{ this.goal }} <!-- delete after -->
+          Il reste {{ this.nbTryLeft }} essais
           <br>
 
           <!-- Chrono -->
           {{ this.displayChrono }}
           <!---->
 
-          <input id="idTextWord" type="text" v-on:keyup.enter="addWord" v-model="this.word">
+          <input id="idTextWord" maxlength="5" type="text" v-on:keyup.enter="addWord" v-model="this.word">
           <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
           <div class="incorrect-word">
             <p v-if="incorrectWord">Ce mot n'existe pas !</p>
@@ -58,7 +58,7 @@ export default{
             win: false,
             chrono: 0.0,
             intervalID: null,
-            nbTryMax: 6,
+            nbTryLeft: 6,
             incorrectWord: false,
             alreadyTyped: false,
             gameIsDone: false
@@ -104,13 +104,13 @@ export default{
                 else{
                     this.listWords.push(this.word);
                     this.word = "";
-                    this.nbTryMax--;
+                    this.nbTryLeft--;
 
                     if(this.listWords[this.listWords.length-1] === this.goal){
                         this.win = true;
                     }
 
-                    if(this.win || this.nbTryMax === 0){
+                    if(this.win || this.nbTryLeft === 0){
                         this.endGame();
                     }
                 }
