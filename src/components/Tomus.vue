@@ -2,9 +2,14 @@
     <div class="tomus-wrapper">
       <!-- All word try -->
       <div id="idAllWords" class="game">
-          <div v-for="word in this.listWords" class="row">
-              <word :value="word" :goal="this.goal"></word>
+        <div v-for="word in this.listWords" class="row">
+            <word :value="word" :goal="this.goal"></word>
+        </div>
+        <div v-show="!gameIsDone" class="row m-top">
+          <div v-for="letter in updateWord" >
+              <letter :value="letter[0]" :color="letter[1]"></letter>
           </div>
+        </div>
       </div>
       <!---->
 
@@ -42,13 +47,15 @@ import axios from "axios";
 import Word from "./word/Word.vue"
 import EndGame from "./EndGame.vue"
 import Keyboard from "./keyboard/Keyboard";
+import Letter from "./word/Letter.vue";
 
 export default{
     name: 'Tomus',
     components: {
         Word,
         EndGame,
-        Keyboard
+        Keyboard,
+        Letter,
     },
     data: function(){
         return{
@@ -67,6 +74,9 @@ export default{
     unmounted() {
       this.stopChrono()
     },
+  created() {
+    this.$store.commit('newGame', {});
+  },
   mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
         this.intervalID = setInterval(this.updateChrono, 1000); // init chrono
@@ -77,6 +87,22 @@ export default{
             txt += Math.floor(this.chrono/60) + 'm '
             txt += this.chrono%60 + 's'
             return txt;
+        },
+        updateWord: function () {
+          let wordToDisplay = [];
+          let goodLetters = this.$store.getters.getGoodLetters;
+          for (let i = 0; i < 5; i++) {
+            if (this.word.length <= i) {
+              if (goodLetters[i] === ' ') {
+                wordToDisplay[i] = ['.', "gray"];
+              } else {
+                wordToDisplay[i] = [goodLetters[i], "green"];
+              }
+            } else {
+              wordToDisplay[i] = [this.word[i], "gray"];
+            }
+          }
+          return wordToDisplay
         }
     },
     methods: {
@@ -143,6 +169,10 @@ export default{
 </script>
 
 <style scoped>
+  .m-top {
+    margin-top: 45px;
+  }
+
   .incorrect-word {
     color: red;
     height: 30px;
