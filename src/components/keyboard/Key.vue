@@ -13,7 +13,7 @@ export default {
 
 <style scoped>
 .key-wrapper {
-  background-color: rgba(77, 64, 64, 0.65);
+  background-color: white;
   border-radius: 20px;
   margin-left: 10px;
   height: 30px;

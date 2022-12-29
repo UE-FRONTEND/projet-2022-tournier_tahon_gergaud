@@ -19,7 +19,7 @@
           <input id="idTextWord" maxlength="5" type="text" v-on:keyup.enter="addWord" v-model="this.word">
           <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
           <div class="incorrect-word">
-            <p v-if="incorrectWord">Ce mot n'existe pas !</p>
+            <p v-if="incorrectWord">Mot invalide !</p>
             <p v-else-if="alreadyTyped">Vous avez deja ecrit ce mot !</p>
           </div>
 
@@ -56,7 +56,7 @@ export default{
             listWords: [],
             goal: "",
             win: false,
-            chrono: 0.0,
+            chrono: 60*10,
             intervalID: null,
             nbTryLeft: 6,
             incorrectWord: false,
@@ -69,11 +69,14 @@ export default{
     },
   mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
-        this.intervalID = setInterval(this.updateChrono, 100); // init chrono
+        this.intervalID = setInterval(this.updateChrono, 1000); // init chrono
     },
     computed: {
         displayChrono: function(){
-            return this.chrono.toFixed(1); // display chrono with 1 number after comma
+            let txt = ''
+            txt += Math.floor(this.chrono/60) + 'm '
+            txt += this.chrono%60 + 's'
+            return txt;
         }
     },
     methods: {
@@ -122,7 +125,7 @@ export default{
                 
         },
         updateChrono: function(){
-            this.chrono += 0.1; // add 1 second in chrono
+            this.chrono -= 1; // add 1 second in chrono
         },
         stopChrono: function(){
             clearInterval(this.intervalID);
@@ -156,7 +159,8 @@ export default{
   }
 
   .game {
-    height: 300px;
+    justify-content: flex-start;
+    height: 350px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
