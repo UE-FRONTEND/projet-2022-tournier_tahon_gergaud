@@ -31,7 +31,7 @@
       <Keyboard @on-value="addInput" @on-delete="deleteInput" @on-enter="addWord"/>
 
       <div>
-          <input type="button" value="Abandonner" @click="endGame" :disabled="gameIsStopping">
+          <input type="button" value="Abandonner" @click="endGame" :disabled="gameIsDone">
       </div>
     </div>
 
@@ -55,7 +55,7 @@ export default{
     },
     data: function(){
         return{
-          keyboard: [
+          acceptedKeys: [
             'q', 'w', 'e', 'r', 't', 'y',
             'u', 'i', 'o', 'p', 'a', 's',
             'd', 'f', 'g', 'h', 'j', 'k',
@@ -66,18 +66,22 @@ export default{
             listWords: [],
             goal: "",
             win: false,
-            chrono: 60*10,
+            chrono: 10*60,
             intervalID: null,
             nbTryLeft: 6,
             incorrectWord: false,
             alreadyTyped: false,
             gameIsDone: false,
-            gameIsStopping: false
         }
     },
     watch: {
         stopGame() {
           this.endGame()
+        },
+        chrono() {
+          if(this.chrono === 0) {
+            this.endGame()
+          }
         }
     },
     unmounted() {
@@ -95,7 +99,7 @@ export default{
         this.deleteInput()
       } else if(event.key === "Enter") {
         this.addWord()
-      } else if(this.keyboard.includes(event.key)) {
+      } else if(this.acceptedKeys.includes(event.key)) {
         this.addInput(event.key);
       }
     }, false);
@@ -184,7 +188,6 @@ export default{
             clearInterval(this.intervalID);
         },
         endGame: function(){
-            this.gameIsStopping = true
             this.stopChrono();
             this.gameIsDone = true
 
