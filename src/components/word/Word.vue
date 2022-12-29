@@ -49,7 +49,6 @@ export default{
 
             let goodLetters = [];
             for (let i = 0; i < 5; i++) {
-              console.log(letterList[i].color);
               if (letterList[i].color === "green") {
                 goodLetters[i] = letterList[i].letter;
               } else {

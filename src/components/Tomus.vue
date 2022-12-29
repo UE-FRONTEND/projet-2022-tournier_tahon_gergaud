@@ -21,8 +21,6 @@
           {{ this.displayChrono }}
           <!---->
 
-          <input id="idTextWord" maxlength="5" type="text" v-on:keyup.enter="addWord" v-model="this.word">
-          <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
           <div class="incorrect-word">
             <p v-if="incorrectWord">Mot invalide !</p>
             <p v-else-if="alreadyTyped">Vous avez deja ecrit ce mot !</p>
@@ -30,7 +28,7 @@
 
       </div>
 
-      <Keyboard @on-value="addInput" @on-delete="deleteInput"/>
+      <Keyboard @on-value="addInput" @on-delete="deleteInput" @on-enter="addWord"/>
 
       <div>
         <router-link to="/">
@@ -59,6 +57,13 @@ export default{
     },
     data: function(){
         return{
+          keyboard: [
+            'q', 'w', 'e', 'r', 't', 'y',
+            'u', 'i', 'o', 'p', 'a', 's',
+            'd', 'f', 'g', 'h', 'j', 'k',
+            'l', 'z', 'x', 'c', 'v', 'b',
+            'n', 'm'
+          ],
             word: "",
             listWords: [],
             goal: "",
@@ -76,6 +81,16 @@ export default{
     },
   created() {
     this.$store.commit('newGame', {});
+
+    document.addEventListener('keydown', (event) => {
+      if(event.key === "Backspace") {
+        this.deleteInput()
+      } else if(event.key === "Enter") {
+        this.addWord()
+      } else if(this.keyboard.includes(event.key)) {
+        this.addInput(event.key);
+      }
+    }, false);
   },
   mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
