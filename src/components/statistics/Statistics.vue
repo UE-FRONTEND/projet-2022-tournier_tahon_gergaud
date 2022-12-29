@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="statistics">
         <p>
             Temps moyen de jeu : {{ this.averageTime }}
             <br>
@@ -48,5 +48,16 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
+.statistics {
+  overflow: auto;
+  height: calc(100vh - 75px);
+  position: fixed;
+  bottom: 0;
+  padding-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 </style>

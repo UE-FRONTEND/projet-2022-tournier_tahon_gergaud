@@ -67,4 +67,8 @@ export default{
 .gameLose {
   border-left: 2px solid red;
 }
+
+.gameDetails > p {
+  width: 350px;
+}
 </style>
