@@ -29,7 +29,7 @@ export default {
 .keyboard-wrapper {
   margin-bottom: 15px;
   display: flex;
-  width: 300px;
+  width: 350px;
   height: 200px;
   flex-wrap: wrap;
   justify-content: space-evenly;
