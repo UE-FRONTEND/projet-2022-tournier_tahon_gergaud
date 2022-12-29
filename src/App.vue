@@ -32,6 +32,6 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #461b4d;
+  background-color: #5377b5;
 }
 </style>
