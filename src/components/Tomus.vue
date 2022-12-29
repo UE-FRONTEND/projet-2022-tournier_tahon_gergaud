@@ -31,9 +31,7 @@
       <Keyboard @on-value="addInput" @on-delete="deleteInput" @on-enter="addWord"/>
 
       <div>
-        <router-link to="/">
           <input type="button" value="Abandonner" @click="endGame">
-        </router-link>
       </div>
     </div>
 
