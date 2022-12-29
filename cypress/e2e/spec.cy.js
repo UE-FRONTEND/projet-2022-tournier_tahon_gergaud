@@ -42,7 +42,17 @@ describe('Make sure our todo list app is working well', () => {
         cy.wait(1000);
     });
 
-    // TODO game lose
+    it('Test that when we lose, we have a lose page', () => {
+        cy.visit('http://192.168.0.35:4000/');
+
+        cy.get('#idButtonStart').click();
+
+        cy.get('#idButtonGiveUp').click();
+
+        cy.contains('perdu', { matchCase: false });
+
+        cy.wait(1000);
+    });
 
     // TODO statistics
 })
