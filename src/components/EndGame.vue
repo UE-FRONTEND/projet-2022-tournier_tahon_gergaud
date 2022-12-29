@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <input type="button" value="Retour" class="back-btn" @click="goHome">
+    <input v-show="isDone" type="button" value="Retour" class="back-btn" @click="goHome">
   </div>
 </template>
 
