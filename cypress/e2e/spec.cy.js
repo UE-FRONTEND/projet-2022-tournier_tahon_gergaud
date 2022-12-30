@@ -10,7 +10,9 @@ describe('Make sure our todo list app is working well', () => {
 
         cy.get('#idButtonStart').click();
 
-        cy.get('div').find('input[type=text]');
+        cy.get('#idKeyboard').type('z');
+
+        cy.get('#idDivWord').contains('z');
 
         cy.wait(1000);
     });
@@ -19,9 +21,11 @@ describe('Make sure our todo list app is working well', () => {
         cy.visit('http://192.168.0.35:4000/');
 
         cy.get('#idButtonStart').click();
+        cy.get('#idKeyboard');
+        cy.get('#idKeyboard');
 
-        cy.get('#idTextWord').type('zzzzz');
-        cy.get('#idButtonValidate').click();
+        cy.get('#idKeyboard').type('zzzzz');
+        cy.get('#idKeyboard').type('{enter}');
 
         cy.get('div').contains('mot invalide', { matchCase: false });
 
@@ -33,8 +37,8 @@ describe('Make sure our todo list app is working well', () => {
 
         cy.get('#idButtonStart').click();
 
-        cy.get('#idTextWord').type('jante');
-        cy.get('#idButtonValidate').click();
+        cy.get('#idKeyboard').type('jante');
+        cy.get('#idKeyboard').type('{enter}');
 
         cy.get('#idTextWord').should('be.empty');
         cy.get('#idAllWords').contains('jante', { matchCase: false });

@@ -5,7 +5,7 @@
         <div v-for="word in this.listWords" class="row">
             <word :value="word" :goal="this.goal"></word>
         </div>
-        <div v-show="!gameIsDone" class="row m-top">
+        <div id="idDivWord" v-show="!gameIsDone" class="row m-top">
           <div v-for="letter in updateWord" >
               <letter :value="letter[0]" :color="letter[1]"></letter>
           </div>
@@ -28,7 +28,7 @@
 
       </div>
 
-      <Keyboard @on-value="addInput" @on-delete="deleteInput" @on-enter="addWord"/>
+      <Keyboard id="idKeyboard" @on-value="addInput" @on-delete="deleteInput" @on-enter="addWord"/>
 
       <div>
           <input id="idButtonGiveUp" type="button" value="Abandonner" @click="endGame" :disabled="gameIsDone">
