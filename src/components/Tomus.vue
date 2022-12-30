@@ -33,7 +33,7 @@
       <Keyboard @on-value="addInput" @on-delete="deleteInput"/>
 
       <div>
-          <input type="button" value="Abandonner" @click="endGame">
+          <input id="idButtonGiveUp" type="button" value="Abandonner" @click="endGame">
       </div>
     </div>
 
@@ -159,7 +159,7 @@ export default{
             this.gameIsDone = true
 
             this.$store.commit('addGame', {
-                "date": new Date(), "nbTry": this.listWords.length, "time": this.chrono, "win": this.win, "word": this.goal
+                "date": new Date(), "nbTry": this.listWords.length, "time": 600-this.chrono, "win": this.win, "word": this.goal
             });
         },
     }

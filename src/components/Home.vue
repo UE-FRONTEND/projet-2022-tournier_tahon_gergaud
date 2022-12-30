@@ -9,7 +9,7 @@
         </router-link>
 
         <router-link to="/statistics">
-            <input type="button" value="Statistiques">
+            <input id="idButtonStatistics" type="button" value="Statistiques">
         </router-link>
     </div>
 </template>

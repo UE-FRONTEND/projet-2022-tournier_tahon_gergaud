@@ -4,19 +4,19 @@
         <p>Partie jouée le {{ this.displayDate }}</p>
         <div class="game gameWin" v-if="win && nbTry === 1">
             <p>Vous avez trouvé le mot "{{ word }}" en {{ this.displayTime }} secondes</p>
-            <p>avec {{ nbTry }} essai.</p>
+            <p>avec {{ nbTry }} tentative.</p>
         </div>
         <div class="game gameWin" v-else-if="win && nbTry > 1">
             <p>Vous avez trouvé le mot "{{ word }}" en {{ this.displayTime }} secondes</p>
-            <p>avec {{ nbTry }} essais.</p>
+            <p>avec {{ nbTry }} tentatives.</p>
         </div>
-        <div class="game gameLose" v-else-if="!win && nbTry === 1">
+        <div id="idDivLose" class="game gameLose" v-else-if="!win && nbTry <= 1">
             <p>Rip t'es trop nul, t'as pas trouvé le mot "{{ word }}"</p>
-            <p>pourtant t'y as passé {{ this.displayTime}} et fait {{ nbTry }} essai.</p>
+            <p>pourtant t'y as passé {{ this.displayTime}} et fait {{ nbTry }} tentative.</p>
         </div>
         <div class="game gameLose" v-else>
             <p>Rip t'es trop nul, t'as pas trouvé le mot "{{ word }}"</p>
-            <p>pourtant tu y as passé {{ this.displayTime}} et fait {{ nbTry }} essais.</p>
+            <p>pourtant tu y as passé {{ this.displayTime}} et fait {{ nbTry }} tentatives.</p>
         </div>
     </div>
 </template>
@@ -61,11 +61,13 @@ export default{
 }
 
 .gameWin {
-  border-left: 2px solid green;
+  border-left: 2px solid;
+  border-left-color: green;
 }
 
 .gameLose {
-  border-left: 2px solid red;
+  border-left: 2px solid;
+  border-left-color : red;
 }
 
 .gameDetails > p {
