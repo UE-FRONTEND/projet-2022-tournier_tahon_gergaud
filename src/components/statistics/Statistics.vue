@@ -45,13 +45,13 @@ export default{
     },
     computed: {
         percentageWin: function(){
-            return this.$store.getters.getPercentage;
+            return this.$store.getters.getPercentage.toFixed(2);
         },
         nbTry: function(){
             return this.$store.getters.getNbTry.toFixed(2);
         },
         averageTime: function(){
-            return helperMethods.convertChrono(this.$store.getters.getAverageTime);
+            return helperMethods.convertChrono(this.$store.getters.getAverageTime.toFixed(2));
         },
         nbGames: function(){
           return (this.$store.getters.getGamesPlayed).length;

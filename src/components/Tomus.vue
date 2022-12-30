@@ -95,15 +95,7 @@ export default{
   created() {
     this.$store.commit('newGame', {});
 
-    document.addEventListener('keydown', (event) => {
-      if(event.key === "Backspace") {
-        this.deleteInput()
-      } else if(event.key === "Enter") {
-        this.addWord()
-      } else if(this.acceptedKeys.includes(event.key)) {
-        this.addInput(event.key);
-      }
-    }, false);
+    document.addEventListener('keydown', this.getKeyPressed);
   },
   mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
@@ -135,66 +127,78 @@ export default{
           return wordToDisplay
         }
     },
-    methods: {
-        addInput: function(v) {
-          if(this.word.length < 5) {
-            this.word += v
-          }
-        },
-        deleteInput: function() {
-          this.word = this.word.slice(0, this.word.length-1)
-        },
-        addWord: async function(){
-            if(this.word.length !== 5) {
-              return
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.getKeyPressed);
+  },
+  methods: {
+    getKeyPressed: function(event) {
+      if(event.key === "Backspace") {
+        this.deleteInput()
+      } else if(event.key === "Enter") {
+        this.addWord()
+      } else if(this.acceptedKeys.includes(event.key)) {
+        this.addInput(event.key);
+      }
+    },
+    addInput: function(v) {
+      if(this.word.length < 5) {
+        this.word += v
+      }
+    },
+    deleteInput: function() {
+      this.word = this.word.slice(0, this.word.length-1)
+    },
+    addWord: async function(){
+        if(this.word.length !== 5) {
+          return
+        }
+
+        let correct = (await axios.post("https://vue-project-backend-eta.vercel.app/api/check-word",
+            {
+                word: this.word
             }
+        )).data.isWord; // check if the word exist
 
-            let correct = (await axios.post("https://vue-project-backend-eta.vercel.app/api/check-word",
-                {
-                    word: this.word
-                }
-            )).data.isWord; // check if the word exist
-
-            if (correct) { // if the word exist and his length == 5
-                if(this.listWords.indexOf(this.word) !== -1){
-                    this.alreadyTyped = true
-                    setTimeout(() => this.alreadyTyped = false, 2000)
-                }
-                else{
-                    this.listWords.push(this.word);
-                    this.word = "";
-                    this.nbTryLeft--;
-
-                    if(this.listWords[this.listWords.length-1] === this.goal){
-                        this.win = true;
-                    }
-
-                    if(this.win || this.nbTryLeft === 0){
-                        this.endGame();
-                    }
-                }
+        if (correct) { // if the word exist and his length == 5
+            if(this.listWords.indexOf(this.word) !== -1){
+                this.alreadyTyped = true
+                setTimeout(() => this.alreadyTyped = false, 2000)
             }
             else{
-                this.incorrectWord = true
-                setTimeout(() => this.incorrectWord = false, 2000)
-            }
-                
-        },
-        updateChrono: function(){
-            this.chrono -= 1; // add 1 second in chrono
-        },
-        stopChrono: function(){
-            clearInterval(this.intervalID);
-        },
-        endGame: function(){
-            this.stopChrono();
-            this.gameIsDone = true
+                this.listWords.push(this.word);
+                this.word = "";
+                this.nbTryLeft--;
 
-            this.$store.commit('addGame', {
-                "date": new Date(), "nbTry": this.listWords.length, "time": 600-this.chrono, "win": this.win, "word": this.goal
-            });
-        },
-    }
+                if(this.listWords[this.listWords.length-1] === this.goal){
+                    this.win = true;
+                }
+
+                if(this.win || this.nbTryLeft === 0){
+                    this.endGame();
+                }
+            }
+        }
+        else{
+            this.incorrectWord = true
+            setTimeout(() => this.incorrectWord = false, 2000)
+        }
+
+    },
+    updateChrono: function(){
+        this.chrono -= 1; // add 1 second in chrono
+    },
+    stopChrono: function(){
+        clearInterval(this.intervalID);
+    },
+    endGame: function(){
+        this.stopChrono();
+        this.gameIsDone = true
+
+        this.$store.commit('addGame', {
+            "date": new Date(), "nbTry": this.listWords.length, "time": 600-this.chrono, "win": this.win, "word": this.goal
+        });
+    },
+  }
 }
 </script>
 
