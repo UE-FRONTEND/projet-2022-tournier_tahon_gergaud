@@ -2,6 +2,7 @@
   <div class="keyboard-wrapper">
     <Key v-for="key in keyboard" :value="key" @on-click="(v) => $emit('on-value', v)"/>
     <Key value="DEL" @on-click="$emit('on-delete')"/>
+    <Key value="ENT" @on-click="$emit('on-enter')"/>
   </div>
 </template>
 

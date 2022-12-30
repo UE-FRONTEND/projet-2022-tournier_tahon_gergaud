@@ -11,6 +11,7 @@ export const store = createStore({
             allWin: 0,
             percentage: 0,
             gamesPlayed: [],
+            stopGame: false
         };
     },
     getters: {
@@ -28,6 +29,9 @@ export const store = createStore({
         },
         getGoodLetters(state){
             return state.goodLetters;
+        },
+        getStopGame(state) {
+            return state.stopGame
         }
     },
     mutations: {
@@ -45,10 +49,20 @@ export const store = createStore({
             state.averageTime = state.allTime/state.gamesPlayed.length;
         },
 
+        stopGame(state) {
+            if(!state.stopGame) {
+                state.stopGame = true
+            }
+        },
+
         newGame(state) {
             for (let i = 0; i < 5; i++) {
                 state.goodLetters[i] = ' ';
             }
+        },
+
+        setGameState(state) {
+            state.stopGame = false
         },
 
         updateGoodLetter(state, word) {

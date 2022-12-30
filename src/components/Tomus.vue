@@ -21,8 +21,6 @@
           {{ this.displayChrono }}
           <!---->
 
-          <input id="idTextWord" maxlength="5" type="text" v-on:keyup.enter="addWord" v-model="this.word">
-          <input id="idButtonValidate" type="button" value="Valider" @click="addWord">
           <div class="incorrect-word">
             <p v-if="incorrectWord">Mot invalide !</p>
             <p v-else-if="alreadyTyped">Vous avez deja ecrit ce mot !</p>
@@ -30,10 +28,10 @@
 
       </div>
 
-      <Keyboard @on-value="addInput" @on-delete="deleteInput"/>
+      <Keyboard @on-value="addInput" @on-delete="deleteInput" @on-enter="addWord"/>
 
       <div>
-          <input id="idButtonGiveUp" type="button" value="Abandonner" @click="endGame">
+          <input id="idButtonGiveUp" type="button" value="Abandonner" @click="endGame" :disabled="gameIsDone">
       </div>
     </div>
 
@@ -57,29 +55,64 @@ export default{
     },
     data: function(){
         return{
+          acceptedKeys: [
+            'q', 'w', 'e', 'r', 't', 'y',
+            'u', 'i', 'o', 'p', 'a', 's',
+            'd', 'f', 'g', 'h', 'j', 'k',
+            'l', 'z', 'x', 'c', 'v', 'b',
+            'n', 'm'
+          ],
             word: "",
             listWords: [],
             goal: "",
             win: false,
-            chrono: 60*10,
+            chrono: 10*60,
             intervalID: null,
             nbTryLeft: 6,
             incorrectWord: false,
             alreadyTyped: false,
-            gameIsDone: false
+            gameIsDone: false,
+        }
+    },
+    watch: {
+        stopGame() {
+          this.endGame()
+        },
+        chrono() {
+          if(this.chrono === 0) {
+            this.endGame()
+          }
         }
     },
     unmounted() {
       this.stopChrono()
     },
+  beforeCreate() {
+    this.$store.commit('setGameState')
+  },
+
   created() {
     this.$store.commit('newGame', {});
+
+    document.addEventListener('keydown', (event) => {
+      if(event.key === "Backspace") {
+        this.deleteInput()
+      } else if(event.key === "Enter") {
+        this.addWord()
+      } else if(this.acceptedKeys.includes(event.key)) {
+        this.addInput(event.key);
+      }
+    }, false);
   },
   mounted(){
         axios.get("https://vue-project-backend-eta.vercel.app/api/new-game").then(response => this.goal = response.data.word); // get word to guess
         this.intervalID = setInterval(this.updateChrono, 1000); // init chrono
     },
     computed: {
+        stopGame() {
+          return this.$store.getters.getStopGame
+        },
+
         displayChrono: function(){
             let txt = ''
             txt += Math.floor(this.chrono/60) + 'm '
