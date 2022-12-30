@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul class="gameList" v-for="oneGame in this.$store.getters.getGamesPlayed">
+        <ul id="idAllGames" class="gameList" v-for="oneGame in this.$store.getters.getGamesPlayed">
             <game :date="oneGame.date" :nbTry="oneGame.nbTry" :time="oneGame.time" :win="oneGame.win" :word="oneGame.word"></game>
         </ul>
     </div>

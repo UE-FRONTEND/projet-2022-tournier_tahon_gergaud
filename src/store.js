@@ -44,9 +44,9 @@ export const store = createStore({
                 state.allWin++;
             }
             if(state.allWin > 0){
-                state.percentage = state.allWin/state.nbTry*100;
+                state.percentage = state.allWin/state.gamesPlayed.length*100;
             }
-            state.averageTime = state.allTime/state.nbTry;
+            state.averageTime = state.allTime/state.gamesPlayed.length;
         },
 
         stopGame(state) {
