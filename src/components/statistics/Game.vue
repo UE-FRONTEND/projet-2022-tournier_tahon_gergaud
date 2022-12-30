@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import {helperMethods} from "../../utils";
+
 export default{
     name: 'Game',
     data: function(){
@@ -41,7 +43,7 @@ export default{
         },
 
         displayTime: function(){
-            return this.time.toFixed(1)
+            return helperMethods.convertChrono(this.time)
         }
     }
 }

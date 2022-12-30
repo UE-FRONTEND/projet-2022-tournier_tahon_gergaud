@@ -44,6 +44,7 @@ import Word from "./word/Word.vue"
 import EndGame from "./EndGame.vue"
 import Keyboard from "./keyboard/Keyboard";
 import Letter from "./word/Letter.vue";
+import {helperMethods} from "../utils";
 
 export default{
     name: 'Tomus',
@@ -66,7 +67,7 @@ export default{
             listWords: [],
             goal: "",
             win: false,
-            chrono: 10*60,
+            chrono: 600,
             intervalID: null,
             nbTryLeft: 6,
             incorrectWord: false,
@@ -114,11 +115,9 @@ export default{
         },
 
         displayChrono: function(){
-            let txt = ''
-            txt += Math.floor(this.chrono/60) + 'm '
-            txt += this.chrono%60 + 's'
-            return txt;
+            return helperMethods.convertChrono(this.chrono)
         },
+
         updateWord: function () {
           let wordToDisplay = [];
           let goodLetters = this.$store.getters.getGoodLetters;

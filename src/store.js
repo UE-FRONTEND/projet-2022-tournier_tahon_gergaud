@@ -14,6 +14,7 @@ export const store = createStore({
             stopGame: false
         };
     },
+
     getters: {
         getAverageTime(state){
             return state.averageTime;
@@ -71,7 +72,7 @@ export const store = createStore({
                     state.goodLetters[i] = word[i];
                 }
             }
-        }
+        },
     }
 
 });
