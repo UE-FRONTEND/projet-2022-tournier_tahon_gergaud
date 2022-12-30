@@ -75,7 +75,7 @@ export default{
 .stats-wrapper {
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 360px;
 }
 
 .statistics {
