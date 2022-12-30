@@ -1,12 +1,12 @@
 describe('Make sure our tomus app is working well', () => {
     it('Test that we can open a browser and load our app', () => {
-        cy.visit('http://192.168.0.35:4000/');
+        cy.visit('http://localhost:4000/');
         
         cy.wait(1000);
     });
     
     it('Test that we can write a word on the game page', () => {
-        cy.visit('http://192.168.0.35:4000/');
+        cy.visit('http://localhost:4000/');
 
         cy.get('#idButtonStart').click();
 
@@ -28,7 +28,7 @@ describe('Make sure our tomus app is working well', () => {
     });
 
     it('Test that when we write zzzzz, we have an error message', () => {
-        cy.visit('http://192.168.0.35:4000/');
+        cy.visit('http://localhost:4000/');
 
         cy.get('#idButtonStart').click();
 
@@ -51,7 +51,7 @@ describe('Make sure our tomus app is working well', () => {
     });
 
     it('Test that when we write jante, it s ok', () => {
-        cy.visit('http://192.168.0.35:4000/');
+        cy.visit('http://localhost:4000/');
 
         cy.get('#idButtonStart').click();
 
@@ -74,7 +74,7 @@ describe('Make sure our tomus app is working well', () => {
     });
 
     it('Test that when we lose, we have a lose page', () => {
-        cy.visit('http://192.168.0.35:4000/');
+        cy.visit('http://localhost:4000/');
 
         cy.get('#idButtonStart').click();
 
@@ -86,7 +86,7 @@ describe('Make sure our tomus app is working well', () => {
     });
 
     it('Test that on statistics, we have all we want', () => {
-        cy.visit('http://192.168.0.35:4000/');
+        cy.visit('http://localhost:4000/');
 
         cy.get('#idButtonStart').click();
         cy.get('#idButtonGiveUp').click();
